@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "256075936726",
+    "project_id": "lotspot-app",
+    "storage_bucket": "lotspot-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256075936726:android:b895b7ac85669cc45eea77",
+        "android_client_info": {
+          "package_name": "dev.nordify.lotspot"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBS7uBQbEjW7enVAPoWFSW8ytpH9VfmYIc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

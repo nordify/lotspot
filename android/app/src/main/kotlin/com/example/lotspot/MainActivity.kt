@@ -1,4 +1,4 @@
-package com.example.lotspot
+package dev.nordify.lotspot
 
 import io.flutter.embedding.android.FlutterActivity
 
