@@ -43,7 +43,12 @@ dependencies:
   bloc: ^8.1.2
   google_sign_in: ^6.1.6
   sign_in_with_apple: ^5.0.0
-  apple_maps_flutter: ^1.2.0
+  apple_maps_flutter:
+    git: https://github.com/nordify/apple_maps_lotspot
+  geolocator: ^10.1.0
+  cloud_firestore: ^4.13.0
+  geoflutterfire:
+    git: https://github.com/harisijazwarraich/GeoFlutterFire
 
 dev_dependencies:
   flutter_test:

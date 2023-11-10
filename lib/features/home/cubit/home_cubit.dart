@@ -1,7 +1,6 @@
 import 'package:apple_maps_flutter/apple_maps_flutter.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lotspot/repositories/authencitation_repository.dart';
 
@@ -13,8 +12,16 @@ class HomeCubit extends Cubit<HomeState> {
   AuthenticationRepository authenticationRepository;
 
   Future<void> onMapCreated(AppleMapController mapController) async {
-    emit(HomeState.loaded(mapController));
+    final polygons = await _loadNearbyParkingSpots();
 
+    emit(HomeState.loaded(
+      mapController,
+      polygons
+    ));
+  }
+
+  Future<Set<Polygon>> _loadNearbyParkingSpots() async {
+    return {};
   }
 
   Future<void> signOut() async {

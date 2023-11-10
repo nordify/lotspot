@@ -14,10 +14,17 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: AppleMap(
-        initialCameraPosition: const CameraPosition(target: LatLng(37.89155, -4.77275), zoom: 14),
-        mapType: MapType.standard,
-        onMapCreated: (controller) => context.read<HomeCubit>().onMapCreated(controller),
+      body: BlocBuilder<HomeCubit, HomeState>(
+        builder: (context, state) {
+          return AppleMap(
+            initialCameraPosition: const CameraPosition(target: LatLng(0,0), zoom: 15.5),
+            mapType: MapType.standard,
+            compassEnabled: false,
+            trackingMode: TrackingMode.followWithHeading,
+            polygons: state.polygons,
+            onMapCreated: (controller) => context.read<HomeCubit>().onMapCreated(controller),
+          );
+        },
       ),
     );
   }
