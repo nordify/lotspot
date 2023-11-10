@@ -19,7 +19,6 @@ class AuthenticationRepository {
     );
 
     // Once signed in, return the UserCredential
-    print(credential);
     await FirebaseAuth.instance.signInWithCredential(credential);
   }
 

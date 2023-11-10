@@ -36,8 +36,6 @@ class AppRouter {
         final appState = _appStateBloc.state;
         final matchedLocation = state.matchedLocation;
 
-        print(appState);
-
         final bool isOnSplashScreen = matchedLocation == '/splash';
         final bool isOnLoginPage = matchedLocation == '/login';
 
