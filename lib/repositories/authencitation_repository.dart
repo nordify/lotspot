@@ -3,6 +3,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class AuthenticationRepository {
+  User? getAuthUser() {
+    return FirebaseAuth.instance.currentUser;
+  }
+
   Future<void> signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();

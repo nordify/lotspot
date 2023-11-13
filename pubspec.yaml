@@ -49,8 +49,12 @@ dependencies:
   cloud_firestore: ^4.13.0
   geoflutterfire:
     git: https://github.com/harisijazwarraich/GeoFlutterFire
+  preload_page_view: ^0.2.0
+  keep_screen_on: ^3.0.0
+  screen_brightness: ^0.2.2+1
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
   flutter_test:
     sdk: flutter
 
@@ -73,8 +77,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  #assets:
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/icon.jpg
+    - assets/logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

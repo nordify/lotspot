@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lotspot/bloc/app_state_bloc.dart';
 import 'package:lotspot/features/home/home_page.dart';
 import 'package:lotspot/features/login/login_page.dart';
+import 'package:lotspot/features/map/map_page.dart';
 import 'package:lotspot/features/splash/view/splash_screen.dart';
 
 class AppRouter {

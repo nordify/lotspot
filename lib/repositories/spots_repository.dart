@@ -9,7 +9,7 @@ class SpotsRepository {
     // get the collection reference or query
     final collectionReference = FirebaseFirestore.instance.collection('spots');
 
-    const double radius = 10;
+    const double radius = 50;
     const String field = 'location';
     final center = geo.point(latitude: currentLocation.latitude, longitude: currentLocation.longitude);
 

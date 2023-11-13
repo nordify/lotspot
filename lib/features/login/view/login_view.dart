@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lotspot/app/color_palette.dart';
 import 'package:lotspot/features/login/cubit/login_cubit.dart';
 
 class LoginView extends StatelessWidget {
@@ -15,7 +16,7 @@ class LoginView extends StatelessWidget {
               child: Container(
             decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                    colors: [Colors.white, Colors.white], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+                    colors: [columbiaBlue, columbiaBlue], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
           )),
           Center(
             child: Padding(
@@ -25,7 +26,8 @@ class LoginView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Spacer(),
-                  const Text('LotSpot', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+                  Image.asset('assets/logo.png'),
+                  const Text("LotSpot", style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),),
                   const Spacer(),
                   SizedBox(
                     width: double.infinity,
@@ -70,7 +72,7 @@ class LoginView extends StatelessWidget {
                       label: const Text('Login with Google'),
                       style: ElevatedButton.styleFrom(
                         elevation: 0,
-                        backgroundColor: Colors.grey[200],
+                        backgroundColor: Colors.white,
                         foregroundColor: Colors.black,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0),
@@ -82,7 +84,7 @@ class LoginView extends StatelessWidget {
                     height: 20,
                   ),
                   Text(
-                    "Version BETA-1.0",
+                    "Version beta-1.0",
                     style: TextStyle(fontSize: 14, color: Colors.grey.shade800),
                   ),
                   const SizedBox(
