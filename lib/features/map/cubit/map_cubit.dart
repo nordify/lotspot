@@ -13,6 +13,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lotspot/app/color_palette.dart';
 import 'package:lotspot/features/map/model/spot.dart';
 import 'package:lotspot/repositories/spots_repository.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 
 part 'map_state.dart';
 
@@ -208,6 +209,15 @@ class MapCubit extends Cubit<MapState> {
     if (isClosed) return;
     emit(state.updateReservedSpot('', 0));
     HapticFeedback.vibrate();
+  }
+
+  Future<void> getDirectionsToSpot() async {
+    String spot = state.reservedSpot.isNotEmpty ? state.reservedSpot : state.selectedSpot;
+    if (spot.isEmpty) return;
+
+    HapticFeedback.lightImpact();
+    final annotation = state.annotations.firstWhere((element) => element.annotationId.value == spot);
+    MapsLauncher.launchCoordinates(annotation.position.latitude, annotation.position.longitude, 'LotSpot Parkspot ${annotation.infoWindow.title}');
   }
 
   Future<void> brightnessUpdate() async {

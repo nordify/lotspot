@@ -75,7 +75,9 @@ class _SpotMapViewState extends State<SpotMapView> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: Container(
-                        color: MediaQuery.of(context).platformBrightness == Brightness.light ? Colors.orange[300] : Colors.orange,
+                        color: MediaQuery.of(context).platformBrightness == Brightness.light
+                            ? Colors.orange[300]
+                            : Colors.orange,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30.0),
                           child: SizedBox(
@@ -92,46 +94,71 @@ class _SpotMapViewState extends State<SpotMapView> {
                     ),
                   ),
                 ),
-              if (state.selectedSpot.isNotEmpty)
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: MediaQuery.of(context).padding.bottom + 15),
-                  child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: SizedBox(
-                          height: 50,
-                          child: ElevatedButton(
-                              onPressed: () => context.read<MapCubit>().resverveSpot(context),
-                              child: const Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Icons.schedule_outlined),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text("Reserve Spot")
-                                ],
-                              )))),
+              if (state.selectedSpot.isNotEmpty || state.reservedSpot.isNotEmpty)
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: MediaQuery.of(context).padding.bottom + 15),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Align(
+                        alignment: Alignment.bottomCenter,
+                        child: SizedBox(
+                            height: 50,
+                            child: ElevatedButton(
+                                onPressed: () => context.read<MapCubit>().getDirectionsToSpot(),
+                                child: const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.navigation_outlined),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text("Get Directions")
+                                  ],
+                                )))),
+                    if (state.selectedSpot.isNotEmpty)
+                      Column(
+                        children: [
+                          const SizedBox(height: 7.5,),
+                          SizedBox(
+                              height: 50,
+                              child: ElevatedButton(
+                                  onPressed: () => context.read<MapCubit>().resverveSpot(context),
+                                  child: const Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.schedule_outlined),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text("Reserve Spot")
+                                    ],
+                                  ))),
+                        ],
+                      ),          
+                    if (state.reservedSpot.isNotEmpty)
+                      Column(
+                        children: [
+                          const SizedBox(height: 7.5,),
+                          SizedBox(
+                              height: 50,
+                              child: ElevatedButton(
+                                  onPressed: () => context.read<MapCubit>().cancelReservation(context),
+                                  child: const Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.cancel_outlined),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text("Cancel Reservation")
+                                    ],
+                                  ))),
+                        ],
+                      ),
+                  ],
                 ),
-              if (state.reservedSpot.isNotEmpty)
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: MediaQuery.of(context).padding.bottom + 15),
-                  child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: SizedBox(
-                          height: 50,
-                          child: ElevatedButton(
-                              onPressed: () => context.read<MapCubit>().cancelReservation(context),
-                              child: const Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Icons.cancel_outlined),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text("Cancel Reservation")
-                                ],
-                              )))),
-                )
+              ),
             ],
           );
         },
