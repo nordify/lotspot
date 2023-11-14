@@ -13,7 +13,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lotspot/app/color_palette.dart';
 import 'package:lotspot/features/map/model/spot.dart';
 import 'package:lotspot/repositories/spots_repository.dart';
-import 'package:maps_launcher/maps_launcher.dart';
+import 'package:map_launcher/map_launcher.dart';
 
 part 'map_state.dart';
 
@@ -217,7 +217,11 @@ class MapCubit extends Cubit<MapState> {
 
     HapticFeedback.lightImpact();
     final annotation = state.annotations.firstWhere((element) => element.annotationId.value == spot);
-    MapsLauncher.launchCoordinates(annotation.position.latitude, annotation.position.longitude, 'LotSpot Parkspot ${annotation.infoWindow.title}');
+
+    final availableMaps = await MapLauncher.installedMaps;
+    await availableMaps.first.showDirections(
+        destination: Coords(annotation.position.latitude, annotation.position.longitude),
+        destinationTitle: 'LotSpot Parkspot ${annotation.infoWindow.title}');
   }
 
   Future<void> brightnessUpdate() async {
