@@ -120,7 +120,7 @@ class _SpotMapViewState extends State<SpotMapView> {
                       child: SizedBox(
                           height: 50,
                           child: ElevatedButton(
-                              onPressed: () => context.read<MapCubit>().cancelReservation(),
+                              onPressed: () => context.read<MapCubit>().cancelReservation(context),
                               child: const Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [

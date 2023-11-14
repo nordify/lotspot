@@ -100,6 +100,7 @@ class MapCubit extends Cubit<MapState> {
           HapticFeedback.lightImpact();
           state.mapController!.animateCamera(CameraUpdate.newCameraPosition(
               CameraPosition(target: LatLng(spot.location.latitude, spot.location.longitude), zoom: 25)));
+          if (spot.occupied) return;
           _selectSpot(spot.name);
         },
       );
@@ -132,7 +133,7 @@ class MapCubit extends Cubit<MapState> {
   Future<void> resverveSpot(BuildContext context) async {
     if (state.selectedSpot.isEmpty) return;
     final annotationId = state.selectedSpot;
-    HapticFeedback.mediumImpact;
+    HapticFeedback.heavyImpact();
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -164,12 +165,7 @@ class MapCubit extends Cubit<MapState> {
 
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (state.reserveSecondsLeft < 2) {
-        _timer?.cancel();
-        _timer = null;
-
-        emit(state.updateReservedSpot('', 0));
-        HapticFeedback.vibrate();
-        spotsRepository.updateReserveSpot(annotationId, false);
+        _cancelReservation();
         return;
       }
 
@@ -178,14 +174,40 @@ class MapCubit extends Cubit<MapState> {
     });
   }
 
-  Future<void> cancelReservation() async {
+  Future<void> cancelReservation(BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Cancel Reservation?'),
+        content: const Text(
+            'Do you really want to cancel your reseveration? Every LotSpot user would the that parking spot again!'),
+        actions: [
+          TextButton(
+              onPressed: () {
+                HapticFeedback.lightImpact();
+                context.pop();
+              },
+              child: const Text("Cancel")),
+          TextButton(
+              onPressed: () {
+                HapticFeedback.mediumImpact();
+                context.pop();
+                _cancelReservation();
+              },
+              child: const Text("Ok"))
+        ],
+      ),
+    );
+  }
+
+  Future<void> _cancelReservation() async {
     if (state.reservedSpot.isEmpty) return;
     _timer?.cancel();
     _timer = null;
     spotsRepository.updateReserveSpot(state.reservedSpot, false);
     if (isClosed) return;
     emit(state.updateReservedSpot('', 0));
-    HapticFeedback.mediumImpact();
+    HapticFeedback.vibrate();
   }
 
   Future<void> brightnessUpdate() async {
@@ -195,7 +217,7 @@ class MapCubit extends Cubit<MapState> {
   @override
   Future<void> close() {
     _spotsUpdateStream.cancel();
-    cancelReservation();
+    _cancelReservation();
     return super.close();
   }
 }
