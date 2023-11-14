@@ -1,10 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:keep_screen_on/keep_screen_on.dart';
 import 'package:lotspot/repositories/authencitation_repository.dart';
 import 'package:lotspot/repositories/settings_repository.dart';
 import 'package:screen_brightness/screen_brightness.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 part 'settings_state.dart';
 
@@ -20,7 +23,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     if (authUser == null) return;
 
     final settings = await settingsRepository.getUserSettings(authUser);
-    emit(SettingsState.loaded(settings));
+    emit(SettingsState.loaded(authUser, settings));
     _updateLocalSettings();
   }
 
@@ -31,7 +34,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     final settings = Map.from(state.settings).map((key, value) => MapEntry(key as String, value as bool));
     settings[settingName] = value;
 
-    emit(SettingsState.loaded(settings));
+    emit(SettingsState.loaded(authUser, settings));
     _updateLocalSettings();
 
     await settingsRepository.updateUserSettings(authUser, settingName, value);
@@ -51,6 +54,14 @@ class SettingsCubit extends Cubit<SettingsState> {
     } else {
       KeepScreenOn.turnOff();
     }
+  }
+
+  Future<void> shareApp() async {
+    await Share.share('https://lotspot.de', subject: 'Share LotSplot to your friends!');
+  }
+
+  Future<void> openMailApp() async {
+    await launchUrl(Uri.parse('mailto:contact@lotsplot.de'));
   }
 
   Future<void> signOut() async {

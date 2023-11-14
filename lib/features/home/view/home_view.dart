@@ -47,7 +47,7 @@ class HomeView extends StatelessWidget {
           _pageController.animateToPage(_currentScreen,
               duration: const Duration(milliseconds: 250), curve: Curves.easeOut);
         },
-        items: [DockTabItem(icon: Icons.map_rounded), DockTabItem(icon: Icons.settings)],
+        items: [DockTabItem(icon: Icons.map_rounded), DockTabItem(icon: Icons.person)],
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lotspot/app/app_observer.dart';
 import 'package:lotspot/app/app_router.dart';
+import 'package:lotspot/app/color_palette.dart';
 import 'package:lotspot/bloc/app_state_bloc.dart';
 import 'package:lotspot/repositories/authencitation_repository.dart';
 import 'package:lotspot/repositories/settings_repository.dart';
@@ -27,7 +28,9 @@ void main() async {
       RepositoryProvider(
         create: (context) => SpotsRepository(),
       ),
-      RepositoryProvider(create: (context) => SettingsRepository(),)
+      RepositoryProvider(
+        create: (context) => SettingsRepository(),
+      )
     ],
     child: BlocProvider(
       lazy: false,
@@ -46,10 +49,9 @@ class LotSplotApp extends StatelessWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'LotSpot',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.greenAccent),
-        useMaterial3: true,
-      ),
+      themeMode: ThemeMode.system,
+      theme: ThemeData(useMaterial3: true, colorSchemeSeed: sapphire, brightness: Brightness.light),
+      darkTheme: ThemeData(useMaterial3: true, colorSchemeSeed: oxfordBlue, brightness: Brightness.dark),
       routerConfig: AppRouter(context).router,
     );
   }

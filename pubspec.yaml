@@ -52,6 +52,8 @@ dependencies:
   preload_page_view: ^0.2.0
   keep_screen_on: ^3.0.0
   screen_brightness: ^0.2.2+1
+  url_launcher: ^6.2.1
+  share_plus: ^7.2.1
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1

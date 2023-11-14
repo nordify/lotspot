@@ -105,11 +105,8 @@ class DockState extends State<Dock> with TickerProviderStateMixin {
             height: 60,
             child: Stack(
               children: [
-                BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
-                  child: Container(
-                    color: oxfordBlue,
-                  ),
+                Container(
+                  color: MediaQuery.of(context).platformBrightness == Brightness.light ? columbiaBlue : oxfordBlue,
                 ),
                 AnimatedPositioned(
                   top: 0,
@@ -129,9 +126,9 @@ class DockState extends State<Dock> with TickerProviderStateMixin {
                       height: 40,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
-                          color: sapphire,
-                          boxShadow: const [
-                            BoxShadow(blurRadius: 50, color: sapphire),
+                          color: MediaQuery.of(context).platformBrightness == Brightness.light ? biceBlue : sapphire,
+                          boxShadow: [
+                            BoxShadow(blurRadius: 50, color: MediaQuery.of(context).platformBrightness == Brightness.light ? biceBlue : sapphire),
                           ]),
                     ),
                   ),
@@ -161,7 +158,6 @@ class DockState extends State<Dock> with TickerProviderStateMixin {
       switch (item.runtimeType) {
         case DockTabItem:
           _DockTabTile tile = _DockTabTile(
-            accessibility_mode: widget.accessibility_mode,
             icon: item.icon,
             width: width,
             callback: () {
@@ -204,10 +200,9 @@ abstract class _DockTile extends StatelessWidget {
 }
 
 class _DockTabTile extends _DockTile {
-  bool accessibility_mode;
   final void Function() callback;
   Widget? child;
-  _DockTabTile({super.icon, required super.width, required this.callback, this.child, this.accessibility_mode = false});
+  _DockTabTile({super.icon, required super.width, required this.callback, this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -218,11 +213,11 @@ class _DockTabTile extends _DockTile {
         width: width,
         color: Colors.transparent,
         child: Transform.scale(
-          scale: accessibility_mode ? 1.5 : 1,
+          scale: 1,
           child: child ??
               Icon(
                 icon,
-                color: Colors.white,
+                color: MediaQuery.of(context).platformBrightness == Brightness.light ? Colors.grey[100] : Colors.white,
               ),
         ),
       ),
