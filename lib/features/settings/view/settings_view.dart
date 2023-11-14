@@ -9,8 +9,6 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          elevation: 0,
-          toolbarHeight: 80,
           title: const Text(
             "Account",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),

@@ -22,7 +22,6 @@ class HomeView extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         controller: _pageController,
         onPageChanged: (index) {
-          HapticFeedback.selectionClick();
           if (!_pageSwitchFromDock) {
             _dockController.moveSliderTo(index < 2 ? index : index + 1);
           }

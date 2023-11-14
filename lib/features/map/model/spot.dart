@@ -5,10 +5,11 @@ class Spot {
   final GeoPoint location;
   final int direction;
   final bool occupied;
+  final bool reserved;
 
-  Spot(this.name, this.location, this.direction, this.occupied);
+  Spot(this.name, this.location, this.direction, this.occupied, this.reserved);
 
   factory Spot.fromFirestoreMap(Map<String, dynamic> data) {
-    return Spot(data['name'], data['location']['geopoint'], data['direction'], data['occupied']);
+    return Spot(data['name'], data['location']['geopoint'], data['direction'], data['occupied'], data['reserved'] == true);
   }
 }

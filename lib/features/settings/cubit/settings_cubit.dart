@@ -28,6 +28,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   Future<void> updateUserSettings(String settingName, bool value) async {
+    HapticFeedback.lightImpact();
     final authUser = authenticationRepository.getAuthUser();
     if (authUser == null) return;
 
@@ -57,15 +58,17 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   Future<void> shareApp() async {
+    HapticFeedback.mediumImpact();
     await Share.share('https://lotspot.de', subject: 'Share LotSplot to your friends!');
   }
 
   Future<void> openMailApp() async {
-    await launchUrl(Uri.parse('mailto:contact@lotsplot.de'));
+    HapticFeedback.mediumImpact();
+    await launchUrl(Uri.parse('tel:+4915209545443'));
   }
 
   Future<void> signOut() async {
-    HapticFeedback.vibrate();
+    HapticFeedback.heavyImpact();
     authenticationRepository.signOut();
   }
 }
