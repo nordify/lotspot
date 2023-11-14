@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lotspot/app/color_palette.dart';
 import 'package:lotspot/features/map/model/spot.dart';
 import 'package:lotspot/repositories/spots_repository.dart';
@@ -128,12 +129,37 @@ class MapCubit extends Cubit<MapState> {
     emit(state.updateSelectedSpot(''));
   }
 
-  Future<void> resverveSpot() async {
+  Future<void> resverveSpot(BuildContext context) async {
     if (state.selectedSpot.isEmpty) return;
     final annotationId = state.selectedSpot;
+    HapticFeedback.mediumImpact;
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('LotSpot Reservations'),
+        content: const Text(
+            'A reservation for a parking spot does not mean that no other car driver can occupy the spot in the meanwhile!'),
+        actions: [
+          TextButton(
+              onPressed: () {
+                HapticFeedback.lightImpact();
+                context.pop();
+              },
+              child: const Text("Cancel")),
+          TextButton(
+              onPressed: () {
+                HapticFeedback.mediumImpact();
+                context.pop();
+                _reseverSpot(annotationId);
+              },
+              child: const Text("Ok"))
+        ],
+      ),
+    );
+  }
 
+  Future<void> _reseverSpot(String annotationId) async {
     emit(state.updateReservedSpot(annotationId, 600));
-    HapticFeedback.heavyImpact();
     spotsRepository.updateReserveSpot(annotationId, true);
 
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {

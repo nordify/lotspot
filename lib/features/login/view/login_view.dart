@@ -14,9 +14,9 @@ class LoginView extends StatelessWidget {
         children: [
           Positioned.fill(
               child: Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
                 gradient: LinearGradient(
-                    colors: [columbiaBlue, columbiaBlue], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+                    colors: [MediaQuery.of(context).platformBrightness == Brightness.light ? columbiaBlue : oxfordBlue, MediaQuery.of(context).platformBrightness == Brightness.light ? columbiaBlue : oxfordBlue], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
           )),
           Center(
             child: Padding(

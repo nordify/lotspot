@@ -100,7 +100,7 @@ class _SpotMapViewState extends State<SpotMapView> {
                       child: SizedBox(
                           height: 50,
                           child: ElevatedButton(
-                              onPressed: () => context.read<MapCubit>().resverveSpot(),
+                              onPressed: () => context.read<MapCubit>().resverveSpot(context),
                               child: const Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
