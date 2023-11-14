@@ -59,7 +59,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   Future<void> shareApp() async {
     HapticFeedback.mediumImpact();
-    await Share.share('https://lotspot.de', subject: 'Share LotSplot to your friends!');
+    await Share.share('https://lotspot.de', subject: 'Share LotSplot with your friends!');
   }
 
   Future<void> openMailApp() async {
